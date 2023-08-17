@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/guests', routes.guests);
-app.use('/groups', routes.groups);
-app.use('/users', routes.users);
+app.use('/api/guests', routes.guests);
+app.use('/api/groups', routes.groups);
+app.use('/api/users', routes.users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
