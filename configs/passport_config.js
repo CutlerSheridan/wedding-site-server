@@ -49,7 +49,7 @@ passport.use(
   new JWTstrategy(
     {
       secretOrKey: process.env.JWT_KEY,
-      jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token'),
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
       debug('token at start: ', token);
@@ -68,6 +68,14 @@ passport.use(
         return done(err, false);
       }
     }
+    // this would always authorize if there is a valid token
+    // async (token, done) => {
+    //   try {
+    //     return done(null, new ObjectId(token._id));
+    //   } catch (err) {
+    //     done(err);
+    //   }
+    // }
   )
 );
 

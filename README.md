@@ -21,6 +21,10 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### DONE
 
+_0.1.2_
+
+- changed jwtFromRequest to extract jwt from authorization header instead of query params
+
 _0.1.1_
 
 - move /signup and /login to 'auth' route
