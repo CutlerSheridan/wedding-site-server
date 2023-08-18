@@ -4,13 +4,18 @@ import cors from 'cors';
 import createError from 'http-errors';
 
 import routes from './routes';
+import passport from './configs/passport_config';
+import './configs/passport_config';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
+app.use('/api/auth', routes.auth);
+// make sure all other routes are secured
+app.use(passport.authenticate('jwt', { session: false }));
 app.use('/api/guests', routes.guests);
 app.use('/api/groups', routes.groups);
 app.use('/api/users', routes.users);
@@ -28,7 +33,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.send(`error ${err.status}: ${err.message}`);
+  res.json(`error ${err.status}: ${err.message}`);
 });
 
 const port = process.env.PORT || 3000;

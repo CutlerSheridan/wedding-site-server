@@ -6,7 +6,8 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- add jwt verification middleware
+- write Guest schema
+- write Group schema
 
 #### TODO LATER
 
@@ -19,6 +20,12 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - add credit
 
 #### DONE
+
+_0.1.1_
+
+- move /signup and /login to 'auth' route
+- write jwt verification middleware
+- add jwt middleware before secure routes
 
 _0.1.0_
 
