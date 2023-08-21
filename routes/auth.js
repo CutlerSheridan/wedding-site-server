@@ -4,7 +4,37 @@ import asyncHandler from 'express-async-handler';
 import passport from '../configs/passport_config';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import populate, { deleteGuestsAndGroups } from '../populatedb';
+import { db } from '../configs/mongodb_config';
+import Debug from 'debug';
+const debug = Debug('auth');
 
+router.get(
+  '/populatedb',
+  asyncHandler(async (req, res) => {
+    await populate();
+    res.json('Done!\n');
+  })
+);
+router.get(
+  '/populatedb_del',
+  asyncHandler(async (req, res) => {
+    await deleteGuestsAndGroups();
+    res.json('Cleared!\n');
+  })
+);
+router.get(
+  '/populatedb_get_guests',
+  asyncHandler(async (req, res) => {
+    const guests = await db
+      .collection('guests')
+      .find({})
+      .sort({ declined: 1, family: 1, group: 1 })
+      .project({ name: 1, group: 1, family: 1, declined: 1 })
+      .toArray();
+    debug('returned guests: ', guests);
+  })
+);
 router.post(
   '/signup',
   passport.authenticate('signup', { session: false }),

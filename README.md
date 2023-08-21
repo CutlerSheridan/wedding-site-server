@@ -6,8 +6,7 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- write Guest schema
-- write Group schema
+- add routes to get some guest data
 
 #### TODO LATER
 
@@ -20,6 +19,12 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - add credit
 
 #### DONE
+
+_0.2.0_
+
+- write Guest schema
+- write Group schema
+- populate db with sample data
 
 _0.1.2_
 
