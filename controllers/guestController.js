@@ -25,7 +25,7 @@ const findOne = async (searchFields = {}) => {
   }
   return Guest(guestDoc);
 };
-const findGuestByName = async (name) => {
+const findByName = async (name) => {
   const regexArg = RegExp(name, 'i');
   const userDoc = await db
     .collection('guests')
@@ -36,5 +36,5 @@ const findGuestByName = async (name) => {
 export default {
   find,
   findOne,
-  findGuestByName,
+  findByName,
 };

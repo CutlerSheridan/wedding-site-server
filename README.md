@@ -6,8 +6,6 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- write search route for inputting guest name
-
 #### TODO LATER
 
 ##### Features
@@ -23,6 +21,10 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - add credit
 
 #### DONE
+
+_0.2.4_
+
+- write search route for inputting guest name
 
 _0.2.3_
 
