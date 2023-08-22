@@ -6,7 +6,7 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- consider rewriting groups to not be a collection and just be an identifier in the groups field
+- write search route for inputting guest name
 
 #### TODO LATER
 
@@ -14,11 +14,21 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 ##### Behavior
 
+- consider indices for:
+  - guests.group
+    - groupController.findOne()
+
 ##### Style
 
 - add credit
 
 #### DONE
+
+_0.2.3_
+
+- extract guest methods into guestController
+- rewrite /guest/count\* routes so only one is used
+- refactor everything so Groups no longer has a model, it's just a linking field in each Guest
 
 _0.2.2_
 

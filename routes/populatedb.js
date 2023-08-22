@@ -1,7 +1,6 @@
 import { Router } from 'express';
 const router = Router();
 import populate, { deleteGuestsAndGroups } from '../populatedb';
-import { db } from '../configs/mongodb_config';
 import asyncHandler from 'express-async-handler';
 import Debug from 'debug';
 const debug = Debug('populatedb_route');

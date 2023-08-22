@@ -5,6 +5,7 @@ const _guestSchema = ({
   name,
   group,
   family = false,
+  address,
   fri_rsvp,
   sat_rsvp,
   sun_rsvp,
@@ -19,6 +20,7 @@ const _guestSchema = ({
     name,
     group,
     family,
+    address,
     fri_rsvp,
     sat_rsvp,
     sun_rsvp,
@@ -34,9 +36,6 @@ const Guest = (dataObj) => {
   let normalizedGuestObj = { ...dataObj };
   if (dataObj._id && typeof dataObj._id === 'string') {
     normalizedGuestObj._id = new ObjectId(dataObj._id);
-  }
-  if (dataObj.group && typeof dataObj.group === 'string') {
-    normalizedGuestObj.group = new ObjectId(dataObj.group);
   }
 
   const guest = _guestSchema(normalizedGuestObj);

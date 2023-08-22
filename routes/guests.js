@@ -3,19 +3,17 @@ const router = Router();
 import Debug from 'debug';
 const debug = Debug('route_guests');
 import asyncHandler from 'express-async-handler';
+const { query } = require('express-validator');
+
 import { db, ObjectId } from '../configs/mongodb_config';
 import Guest from '../models/Guest';
+import guestController from '../controllers/guestController';
 
 router.get(
   '/',
   asyncHandler(async (req, res, next) => {
     debug('req.user: ', req.user);
-    const guestDocs = await db
-      .collection('guests')
-      .find({})
-      .sort({ declined: 1, family: 1, group: 1 })
-      .toArray();
-    const guests = guestDocs.map((x) => Guest(x));
+    const guests = await guestController.find({});
     debug('returned guests: ', guests);
     res.json({
       message: 'You made it to the secure route to see the guests',
@@ -24,14 +22,25 @@ router.get(
     });
   })
 );
+router.get('/count', [
+  query('*').if(query('*').isBoolean()).toBoolean(),
+  asyncHandler(async (req, res) => {
+    const { include_grooms: includeGrooms = true, ...countFields } = req.query;
+    if (!countFields.declined) {
+      countFields.declined = false;
+    }
+    debug('includeGrooms: ', includeGrooms, 'countFields: ', countFields);
+    const groomCount = includeGrooms ? 2 : 0;
+    res.json(
+      groomCount +
+        (await db.collection('guests').countDocuments(countFields ?? {}))
+    );
+  }),
+]);
 router.get(
   '/:guest_id',
   asyncHandler(async (req, res, next) => {
-    res.json(
-      await db
-        .collection('guests')
-        .findOne({ _id: new ObjectId(req.params.guest_id) })
-    );
+    res.json(await guestController.findOne({ _id: req.params.guest_id }));
   })
 );
 router.put(
@@ -53,54 +62,9 @@ router.get(
     res.json(
       await db
         .collection('guests')
-        .find({ family: family.toLowerCase(), declined: false })
+        .find({ family, declined: false })
         .sort({ group: 1 })
         .toArray()
-    );
-  })
-);
-router.get(
-  '/count/all',
-  asyncHandler(async (req, res) => {
-    // add 2 for Tyler and Cutler
-    res.json(
-      2 + (await db.collection('guests').countDocuments({ declined: false }))
-    );
-  })
-);
-router.get(
-  '/count/friday',
-  asyncHandler(async (req, res) => {
-    // add 2 for Tyler and Cutler
-    res.json(
-      2 +
-        (await db
-          .collection('guests')
-          .countDocuments({ declined: false, fri_rsvp: true }))
-    );
-  })
-);
-router.get(
-  '/count/saturday',
-  asyncHandler(async (req, res) => {
-    // add 2 for Tyler and Cutler
-    res.json(
-      2 +
-        (await db
-          .collection('guests')
-          .countDocuments({ declined: false, sat_rsvp: true }))
-    );
-  })
-);
-router.get(
-  '/count/sunday',
-  asyncHandler(async (req, res) => {
-    // add 2 for Tyler and Cutler
-    res.json(
-      2 +
-        (await db
-          .collection('guests')
-          .countDocuments({ declined: false, sun_rsvp: true }))
     );
   })
 );

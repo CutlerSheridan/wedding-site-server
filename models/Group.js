@@ -9,9 +9,9 @@ const _groupSchema = ({ _id, address }) => {
 
 const Group = (dataObj) => {
   const normalizedGroupObj = { ...dataObj };
-  if (dataObj._id && typeof dataObj._id === 'string') {
-    normalizedGroupObj._id = new ObjectId(dataObj._id);
-  }
+  // if (dataObj._id && typeof dataObj._id === 'string') {
+  //   normalizedGroupObj._id = new ObjectId(dataObj._id);
+  // }
 
   const group = _groupSchema(normalizedGroupObj);
 

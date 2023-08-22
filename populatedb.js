@@ -1,6 +1,5 @@
 import { db } from './configs/mongodb_config';
 import Guest from './models/Guest';
-import Group from './models/Group';
 import Debug from 'debug';
 const debug = Debug('populatedb');
 import asyncHandler from 'express-async-handler';
@@ -21,11 +20,9 @@ const guestCreate = asyncHandler(async (guestObj) => {
   debug('guest created: ', guest);
 });
 const groupCreate = asyncHandler(async (groupArray) => {
-  const group = Group({});
-  await db.collection('groups').insertOne(group);
-  debug('group created: ', group);
-  await groupArray.forEach(async (guest) => {
-    guestCreate({ ...guest, group: group._id });
+  const groupId = randomizeId();
+  await groupArray.forEach((guest) => {
+    guestCreate({ ...guest, group: groupId });
   });
 });
 
@@ -33,6 +30,19 @@ const createGuests = async (groupsArray) => {
   const promises = groupsArray.map(groupCreate);
   await Promise.all(promises);
   debug('finished creating');
+};
+const randomizeId = () => {
+  let _charOptions = 'abcdefghijklmnopqrstuvwxyz';
+  _charOptions += _charOptions.toUpperCase();
+  _charOptions += '0123456789';
+  let randomId = '';
+  for (let i = 0; i < 24; i++) {
+    const randomIndex = Math.floor(
+      (Math.random() * 100 * _charOptions.length) / 100
+    );
+    randomId += _charOptions.charAt(randomIndex);
+  }
+  return randomId;
 };
 // const createGuests = async (guestArray) => {
 //   const promises = guestArray.map(guestCreate);
