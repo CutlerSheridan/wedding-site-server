@@ -6,7 +6,7 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- add routes to get some guest data
+- add routes to fetch group data
 
 #### TODO LATER
 
@@ -19,6 +19,19 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - add credit
 
 #### DONE
+
+_0.2.1_
+
+- write routes for:
+  - /guests
+  - GET /guests/:guest_id
+  - PUT /guests/:guest_id
+  - /family:whose_family
+  - /count/all
+  - /count/friday
+  - /count/saturday
+  - /count/sunday
+- add routes for /api/populatedb, /del
 
 _0.2.0_
 

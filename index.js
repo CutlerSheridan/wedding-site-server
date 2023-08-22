@@ -14,8 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/auth', routes.auth);
-// make sure all other routes are secured
-app.use(passport.authenticate('jwt', { session: false }));
+app.use('/api/populatedb', routes.populatedb);
+// secure all routes below here
+// app.use(passport.authenticate('jwt', { session: false }));
 app.use('/api/guests', routes.guests);
 app.use('/api/groups', routes.groups);
 app.use('/api/users', routes.users);
