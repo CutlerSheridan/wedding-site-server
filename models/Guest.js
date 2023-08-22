@@ -35,6 +35,9 @@ const Guest = (dataObj) => {
   if (dataObj._id && typeof dataObj._id === 'string') {
     normalizedGuestObj._id = new ObjectId(dataObj._id);
   }
+  if (dataObj.group && typeof dataObj.group === 'string') {
+    normalizedGuestObj.group = new ObjectId(dataObj.group);
+  }
 
   const guest = _guestSchema(normalizedGuestObj);
 
@@ -42,3 +45,5 @@ const Guest = (dataObj) => {
 };
 
 export default Guest;
+
+('');

@@ -10,15 +10,17 @@ router.get(
   '/',
   asyncHandler(async (req, res, next) => {
     debug('req.user: ', req.user);
-    const guests = await db
+    const guestDocs = await db
       .collection('guests')
       .find({})
       .sort({ declined: 1, family: 1, group: 1 })
       .toArray();
+    const guests = guestDocs.map((x) => Guest(x));
     debug('returned guests: ', guests);
     res.json({
       message: 'You made it to the secure route to see the guests',
       user: req.user,
+      guests,
     });
   })
 );
@@ -32,21 +34,17 @@ router.get(
     );
   })
 );
-router.put('/:guest_id', [
-  (req, res, next) => {
-    if (req.body.group) {
-      req.body.group = new ObjectId(req.body.group);
-    }
-    next();
-  },
+router.put(
+  '/:guest_id',
   asyncHandler(async (req, res, next) => {
     const _id = new ObjectId(req.params.guest_id);
-    const currentDoc = await db.collection('guests').findOne({ _id });
-    const newGuest = Guest({ ...currentDoc, ...req.body });
-    await db.collection('guests').updateOne({ _id }, { $set: newGuest });
-    return res.status(currentDoc ? 200 : 203).json(newGuest);
-  }),
-]);
+    const currentGuestDoc = await db.collection('guests').findOne({ _id });
+    const updatedGuest = Guest({ ...currentGuestDoc, ...req.body });
+    await db.collection('guests').updateOne({ _id }, { $set: updatedGuest });
+    debug("devon's data: ", updatedGuest);
+    return res.status(currentGuestDoc ? 200 : 203).json(updatedGuest);
+  })
+);
 
 router.get(
   '/family/:whose_family',

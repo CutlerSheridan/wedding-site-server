@@ -13,13 +13,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/auth', routes.auth);
-app.use('/api/populatedb', routes.populatedb);
+app.use('/api/1/auth', routes.auth);
+app.use('/api/1/populatedb', routes.populatedb);
 // secure all routes below here
 // app.use(passport.authenticate('jwt', { session: false }));
-app.use('/api/guests', routes.guests);
-app.use('/api/groups', routes.groups);
-app.use('/api/users', routes.users);
+app.use('/api/1/guests', routes.guests);
+app.use('/api/1/groups', routes.groups);
+app.use('/api/1/users', routes.users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

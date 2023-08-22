@@ -6,7 +6,7 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- add routes to fetch group data
+- consider rewriting groups to not be a collection and just be an identifier in the groups field
 
 #### TODO LATER
 
@@ -19,6 +19,12 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - add credit
 
 #### DONE
+
+_0.2.2_
+
+- write routes for:
+  - /groups
+  - /groups/:group_id
 
 _0.2.1_
 
