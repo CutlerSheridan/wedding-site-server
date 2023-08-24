@@ -22,6 +22,10 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### DONE
 
+_0.2.5_
+
+- refactor both findByName() methods to handle when no user is found
+
 _0.2.4_
 
 - write search route for inputting guest name
