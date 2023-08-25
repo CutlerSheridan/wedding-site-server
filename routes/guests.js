@@ -47,10 +47,20 @@ router.put(
   '/:guest_id',
   asyncHandler(async (req, res, next) => {
     const _id = new ObjectId(req.params.guest_id);
+
     const currentGuestDoc = await db.collection('guests').findOne({ _id });
     const updatedGuest = Guest({ ...currentGuestDoc, ...req.body });
+    if (
+      updatedGuest.fri_rsvp === false &&
+      updatedGuest.sat_rsvp === false &&
+      updatedGuest.sun_rsvp === false
+    ) {
+      updatedGuest.declined = true;
+    } else {
+      updatedGuest.declined = false;
+    }
     await db.collection('guests').updateOne({ _id }, { $set: updatedGuest });
-    debug("devon's data: ", updatedGuest);
+
     return res.status(currentGuestDoc ? 200 : 203).json(updatedGuest);
   })
 );

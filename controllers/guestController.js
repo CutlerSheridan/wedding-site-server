@@ -30,7 +30,6 @@ const findByName = async (name) => {
   const userDoc = await db
     .collection('guests')
     .findOne({ name: { $regex: regexArg } });
-  debug('userDoc: ', userDoc);
   if (userDoc) {
     return Guest(userDoc);
   }

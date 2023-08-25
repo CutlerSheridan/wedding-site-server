@@ -9,6 +9,9 @@ const main = async () => {
 };
 
 const guestCreate = asyncHandler(async (guestObj) => {
+  if (!guestObj.rsvps) {
+    guestObj.rsvps = [];
+  }
   const guest = Guest({
     ...guestObj,
     fri_rsvp: guestObj.rsvps[0],
@@ -21,6 +24,13 @@ const guestCreate = asyncHandler(async (guestObj) => {
 });
 const groupCreate = asyncHandler(async (groupArray) => {
   const groupId = randomizeId();
+  const familyIndex = groupArray.findIndex((x) => x.hasOwnProperty('family'));
+  const family = familyIndex === -1 ? false : groupArray[familyIndex].family;
+  if (family) {
+    groupArray = groupArray.map((x) => {
+      return { ...x, family };
+    });
+  }
   await groupArray.forEach((guest) => {
     guestCreate({ ...guest, group: groupId });
   });
@@ -128,7 +138,7 @@ const guestGroups = [
     },
     {
       name: 'Dave Gushie',
-      rsvps: [],
+      rsvps: [false, false, false],
       std: true,
     },
   ],
@@ -179,6 +189,21 @@ const guestGroups = [
       name: 'Shireen something',
       rsvps: [],
       next_round: true,
+    },
+  ],
+  [
+    {
+      name: 'Alan Reeves',
+      family: 'tyler',
+    },
+    {
+      name: 'Julie Reeves',
+    },
+    {
+      name: 'Norah Reeves',
+    },
+    {
+      name: 'Evangeline Reeves',
     },
   ],
 ];
