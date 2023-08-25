@@ -22,6 +22,10 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### DONE
 
+_0.2.7_
+
+- fix guestController.findByName() so regex must match full name, not just a portion of name
+
 _0.2.6_
 
 - update PUT /guests/:guest_id so it detects if user has declined all three events or not and sets guest.declined accordingly

@@ -60,7 +60,7 @@ router.put(
       updatedGuest.declined = false;
     }
     await db.collection('guests').updateOne({ _id }, { $set: updatedGuest });
-
+    debug('guest: ', updatedGuest);
     return res.status(currentGuestDoc ? 200 : 203).json(updatedGuest);
   })
 );

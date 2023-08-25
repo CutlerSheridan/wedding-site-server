@@ -26,10 +26,12 @@ const findOne = async (searchFields = {}) => {
   return Guest(guestDoc);
 };
 const findByName = async (name) => {
-  const regexArg = RegExp(name, 'i');
+  const regexArg = RegExp(`^${name}$`, 'i');
   const userDoc = await db
     .collection('guests')
     .findOne({ name: { $regex: regexArg } });
+  debug('found guest: ', userDoc);
+  debug('input name: ', name);
   if (userDoc) {
     return Guest(userDoc);
   }
