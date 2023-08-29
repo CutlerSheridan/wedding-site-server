@@ -22,6 +22,10 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### DONE
 
+_0.2.8_
+
+- refactor /auth/signup to use validation
+
 _0.2.7_
 
 - fix guestController.findByName() so regex must match full name, not just a portion of name
