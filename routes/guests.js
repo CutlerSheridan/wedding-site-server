@@ -50,17 +50,30 @@ router.put(
 
     const currentGuestDoc = await db.collection('guests').findOne({ _id });
     const updatedGuest = Guest({ ...currentGuestDoc, ...req.body });
+    const upddatingRsvps =
+      req.body.hasOwnProperty('fri_rsvp') ||
+      req.body.hasOwnProperty('sat_rsvp') ||
+      req.body.hasOwnProperty('sun_rsvp');
     if (
+      upddatingRsvps &&
       updatedGuest.fri_rsvp === false &&
       updatedGuest.sat_rsvp === false &&
       updatedGuest.sun_rsvp === false
     ) {
       updatedGuest.declined = true;
-    } else {
+    } else if (
+      upddatingRsvps &&
+      !(
+        req.body?.fri_rsvp === false ||
+        req.body?.sat_rsvp === false ||
+        req.body?.sun_rsvp === false
+      )
+    ) {
       updatedGuest.declined = false;
     }
     await db.collection('guests').updateOne({ _id }, { $set: updatedGuest });
-    debug('guest: ', updatedGuest);
+    debug('old guest: ', req.body);
+    debug('updated guest: ', updatedGuest);
     return res.status(currentGuestDoc ? 200 : 203).json(updatedGuest);
   })
 );

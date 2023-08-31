@@ -6,9 +6,16 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
+- make it so changing sent_savedate, sent_invite, or any rsvp field to true changes next_round to false
+
 #### TODO LATER
 
 ##### Features
+
+- change put PUT /:guest_id so it does not fetch original document, rather I will pass entire document with updates and just replace old doc with that
+- move conditional changes to Guest object into guestController to declutter guests.js
+- get rid of "notes" Guest field
+- add game fields to Guest
 
 ##### Behavior
 
@@ -21,6 +28,17 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - add credit
 
 #### DONE
+
+_0.2.9_
+
+- add next_round sorting to Guests and Groups
+- update PUT /:guest_id to account for status of declination
+- update PUT /:guest_id to give RSVP and declined updates proper behavior
+  - when switching RSVP and all three are now false, set declined to true
+  - when setting to declined, retain other RSVP values
+  - when declined, if an RSVP is switched to null or true, set declined to false
+  - when declined, if RSVP is switched to false, declined value remains false
+  - allow setting declined to false even if all RSVPs are false
 
 _0.2.8_
 

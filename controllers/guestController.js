@@ -3,7 +3,7 @@ import { db, ObjectId } from '../configs/mongodb_config';
 import Debug from 'debug';
 const debug = Debug('guest_controller');
 
-const _sortDefaults = { declined: 1, family: 1, group: 1 };
+const _sortDefaults = { declined: 1, next_round: 1, family: 1, group: 1 };
 
 const find = async (searchFields = {}, sortFields = _sortDefaults) => {
   const guestDocs = await db

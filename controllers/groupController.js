@@ -4,7 +4,7 @@ import guestController from './guestController';
 import Debug from 'debug';
 const debug = Debug('group_controller');
 
-const _sortDefaults = { group: 1, declined: 1, family: 1 };
+const _sortDefaults = { group: 1, declined: 1, next_round: 1, family: 1 };
 
 const find = async (searchFields = {}, sortFields = _sortDefaults) => {
   const guestDocs = await db

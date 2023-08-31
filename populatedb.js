@@ -206,6 +206,16 @@ const guestGroups = [
       name: 'Evangeline Reeves',
     },
   ],
+  [
+    {
+      name: 'Andrew Saidman',
+      next_round: true,
+    },
+    {
+      name: 'SaraLynn Saidman',
+      next_round: true,
+    },
+  ],
 ];
 
 export const deleteGuestsAndGroups = async () => {
