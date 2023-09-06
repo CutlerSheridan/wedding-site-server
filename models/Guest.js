@@ -13,6 +13,10 @@ const _guestSchema = ({
   sent_savedate = false,
   sent_invite = false,
   next_round = false,
+  character,
+  sent_character = false,
+  backstory,
+  secrets,
   notes,
 }) => {
   return {
@@ -28,6 +32,10 @@ const _guestSchema = ({
     sent_savedate,
     sent_invite,
     next_round,
+    character,
+    sent_character,
+    backstory,
+    secrets,
     notes,
   };
 };

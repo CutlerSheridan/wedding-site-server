@@ -11,6 +11,16 @@ const main = async () => {
 const guestCreate = asyncHandler(async (guestObj) => {
   if (!guestObj.rsvps) {
     guestObj.rsvps = [];
+  } else if (
+    // testing if all RSVPs have been specified as false
+    guestObj.rsvps.reduce((acc, cur) => {
+      if (acc && cur === false) {
+        return true;
+      }
+      return false;
+    }, true)
+  ) {
+    guestObj.declined = true;
   }
   const guest = Guest({
     ...guestObj,
@@ -110,21 +120,18 @@ const guestGroups = [
   [
     {
       name: 'Devon Zawko',
-      rsvps: [],
       std: true,
     },
   ],
   [
     {
       name: 'Linda Ritter',
-      rsvps: [],
       declined: true,
       family: 'tyler',
       std: true,
     },
     {
       name: 'Terry Ritter',
-      rsvps: [],
       declined: true,
       family: 'tyler',
       std: true,
@@ -145,19 +152,17 @@ const guestGroups = [
   [
     {
       name: 'Cari Hudson',
-      rsvps: [],
       group: 3,
     },
     {
       name: 'Amir something',
-      rsvps: [],
       group: 3,
     },
   ],
   [
     {
       name: 'Katie Wang',
-      rsvps: [],
+      rsvps: [, true, false],
       std: true,
       group: 4,
     },
@@ -187,7 +192,6 @@ const guestGroups = [
   [
     {
       name: 'Shireen something',
-      rsvps: [],
       next_round: true,
     },
   ],

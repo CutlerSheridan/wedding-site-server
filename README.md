@@ -14,7 +14,6 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 - change put PUT /:guest_id so it does not fetch original document, rather I will pass entire document with updates and just replace old doc with that
 - move conditional changes to Guest object into guestController to declutter guests.js
-- get rid of "notes" Guest field
 - add game fields to Guest
 
 ##### Behavior
@@ -28,6 +27,16 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - add credit
 
 #### DONE
+
+_0.2.10_
+
+- add game fiedls to Guest
+  - 'character'
+  - 'intro'
+  - 'secrets'
+  - 'sent_character'
+  - 'notes'
+- enable populatedb to auto-decline if all three RSVPs are specified as false
 
 _0.2.9_
 
