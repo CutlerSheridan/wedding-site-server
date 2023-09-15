@@ -4,6 +4,7 @@ import Debug from 'debug';
 const debug = Debug('route_guests');
 import asyncHandler from 'express-async-handler';
 const { query } = require('express-validator');
+import passport from '../configs/passport_config';
 
 import { db, ObjectId } from '../configs/mongodb_config';
 import Guest from '../models/Guest';
@@ -11,6 +12,7 @@ import guestController from '../controllers/guestController';
 
 router.get(
   '/',
+  passport.authenticate('jwt', { session: false }),
   asyncHandler(async (req, res, next) => {
     debug('req.user: ', req.user);
     const guests = await guestController.find({});

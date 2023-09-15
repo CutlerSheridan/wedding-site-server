@@ -142,21 +142,25 @@ const guestGroups = [
       name: 'Lydia Fletcher',
       rsvps: [, true],
       std: true,
+      address: '1245 Horsey Drive\nRoswell, NM 50505',
     },
     {
       name: 'Dave Gushie',
       rsvps: [false, false, false],
       std: true,
+      address: '999 Buckingham Palace\nLondon, England 1DZ-49C',
     },
   ],
   [
     {
       name: 'Cari Hudson',
       group: 3,
+      address: '353 Hollywood & Vine\nLos Angeles, CA 90020',
     },
     {
       name: 'Amir something',
       group: 3,
+      address: '1000 Fancy Street\nBeverly Hills, CA 90210',
     },
   ],
   [
@@ -187,11 +191,12 @@ const guestGroups = [
       rsvps: [true, true, true],
       std: true,
       family: 'cutler',
+      address: '262 South Ave. SE\nMarietta, GA 30060',
     },
   ],
   [
     {
-      name: 'Shireen something',
+      name: 'Shireen Heiba',
       next_round: true,
     },
   ],

@@ -21,12 +21,23 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - consider indices for:
   - guests.group
     - groupController.findOne()
+- validate/sanitize PUT /:guest_id
 
 ##### Style
 
 - add credit
 
 #### DONE
+
+_0.2.11_
+
+- add a group with one address to populatedb
+- add a group with multiple addresses to populatedb
+- add JWT authentication to GET /guests
+- add fields to guests:
+  - ready_to_send
+  - survives
+  - role
 
 _0.2.10_
 
