@@ -3,7 +3,7 @@ const router = Router();
 import Debug from 'debug';
 const debug = Debug('route_guests');
 import asyncHandler from 'express-async-handler';
-const { query } = require('express-validator');
+const { body, query } = require('express-validator');
 import passport from '../configs/passport_config';
 
 import { db, ObjectId } from '../configs/mongodb_config';
@@ -14,13 +14,24 @@ router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   asyncHandler(async (req, res, next) => {
-    debug('req.user: ', req.user);
+    // debug('req.user: ', req.user);
     const guests = await guestController.find({});
-    debug('returned guests: ', guests);
+    // debug('returned guests: ', guests);
     res.json({
       message: 'You made it to the secure route to see the guests',
       user: req.user,
       guests,
+    });
+  })
+);
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  asyncHandler(async (req, res, next) => {
+    const guests = req.body.map((x) => Guest(x));
+    await db.collection('guests').insertMany(guests);
+    res.json({
+      message: 'All new guests added!',
     });
   })
 );
@@ -74,12 +85,20 @@ router.put(
       updatedGuest.declined = false;
     }
     await db.collection('guests').updateOne({ _id }, { $set: updatedGuest });
-    debug('old guest: ', req.body);
+    debug('old guest: ', currentGuestDoc);
     debug('updated guest: ', updatedGuest);
     return res.status(currentGuestDoc ? 200 : 203).json(updatedGuest);
   })
 );
-
+router.delete(
+  '/:guest_id',
+  passport.authenticate('jwt', { session: false }),
+  asyncHandler(async (req, res, next) => {
+    const _id = new ObjectId(req.params.guest_id);
+    await db.collection('guests').deleteOne({ _id });
+    return res.json();
+  })
+);
 router.get(
   '/family/:whose_family',
   asyncHandler(async (req, res) => {

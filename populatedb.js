@@ -204,6 +204,7 @@ const guestGroups = [
     {
       name: 'Alan Reeves',
       family: 'tyler',
+      address: '12 Grimmauld Place\nLondon, Islington, GB',
     },
     {
       name: 'Julie Reeves',

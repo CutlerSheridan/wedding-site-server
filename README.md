@@ -6,15 +6,25 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- make it so changing sent_savedate, sent_invite, or any rsvp field to true changes next_round to false
+- add 'characters' collection to db with fields:
+  - name
+  - survives
+  - optional
+  - role
+  - backstory
+  - secrets
+- add 'characters' API routes
+- make test DB
+  - add variable to swap references to production db vs. test db
+  - add function to clear test DB and populate it with data from production DB
 
 #### TODO LATER
 
 ##### Features
 
 - change put PUT /:guest_id so it does not fetch original document, rather I will pass entire document with updates and just replace old doc with that
+- make it so changing sent_savedate, sent_invite, or any rsvp field to true changes next_round to false
 - move conditional changes to Guest object into guestController to declutter guests.js
-- add game fields to Guest
 
 ##### Behavior
 
@@ -22,12 +32,19 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
   - guests.group
     - groupController.findOne()
 - validate/sanitize PUT /:guest_id
+- clean up debugs
 
 ##### Style
 
 - add credit
 
 #### DONE
+
+_0.2.12_
+
+- add route for PUT /guests
+- add route for DELETE /guests/:guest_id
+- make POST /guests 'await' before responding, jesus
 
 _0.2.11_
 
