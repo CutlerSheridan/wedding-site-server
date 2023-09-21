@@ -1,11 +1,13 @@
-import { db } from './configs/mongodb_config';
+import { db, productionDb, testingDb } from './configs/mongodb_config';
 import Guest from './models/Guest';
+import User from './models/User';
+import Character from './models/Character';
 import Debug from 'debug';
 const debug = Debug('populatedb');
 import asyncHandler from 'express-async-handler';
 
 const main = async () => {
-  await createGuests(guestGroups);
+  await Promise.all([createGuests(guestGroups), createCharacters(characters)]);
 };
 
 const guestCreate = asyncHandler(async (guestObj) => {
@@ -45,11 +47,19 @@ const groupCreate = asyncHandler(async (groupArray) => {
     guestCreate({ ...guest, group: groupId });
   });
 });
+const characterCreate = asyncHandler(async (charObj) => {
+  const character = Character(charObj);
+  await db.collection('characters').insertOne(character);
+});
 
 const createGuests = async (groupsArray) => {
   const promises = groupsArray.map(groupCreate);
   await Promise.all(promises);
-  debug('finished creating');
+  debug('finished creating guests');
+};
+const createCharacters = async (charsArray) => {
+  await Promise.all(charsArray.map((x) => characterCreate(x)));
+  debug('finished creating characters');
 };
 const randomizeId = () => {
   let _charOptions = 'abcdefghijklmnopqrstuvwxyz';
@@ -64,59 +74,8 @@ const randomizeId = () => {
   }
   return randomId;
 };
-// const createGuests = async (guestArray) => {
-//   const promises = guestArray.map(guestCreate);
-//   await Promise.all(promises);
-// THIS WAS TO FETCH DOCS FROM DB AND USE OTHER ARRAY AS SORT KEY
-//   const guestDocs = await db
-//     .collection('guests')
-//     .aggregate([
-//       {
-//         $addFields: {
-//           __order: {
-//             $indexOfArray: [
-//               {
-//                 $map: {
-//                   input: guestArray,
-//                   in: { $eq: ['$$this.name', '$name'] },
-//                 },
-//               },
-//               true,
-//             ],
-//           },
-//         },
-//       },
-//       { $sort: { __order: 1 } },
-//       { $project: { __order: 0 } },
-//     ])
-//     .toArray();
-//   // debug('guestDocs: ', guestDocs);
-//   guestDocs.forEach((guest, index) => {
-//     guests.push(Guest(guest));
-//     guests[index].group = guestArray[index].group;
-//   });
-// };
-
-// const createGroups = async (groupArray) => {
-//   const promises = [];
-//   for (let i = 0; i < groupArray.length; i++) {
-//     promises.push();
-//   }
-// };
 
 const guestGroups = [
-  // {
-  //   name: 'Cutler Sheridan',
-  //   rsvps: [true, true, true],
-  //   std: true,
-  //   group: 0,
-  // },
-  // {
-  //   name: 'Tyler Reeves',
-  //   rsvps: [true, true, true],
-  //   std: true,
-  //   group: 0,
-  // },
   [
     {
       name: 'Devon Zawko',
@@ -227,13 +186,54 @@ const guestGroups = [
     },
   ],
 ];
+const characters = [
+  {
+    name: 'Molly Brown',
+    survives: true,
+    optional: false,
+    role: 'New money oil baron',
+  },
+  {
+    name: 'Thomas Andrew',
+    survives: false,
+    optional: false,
+    role: 'Ship engineer',
+  },
+];
 
-export const deleteGuestsAndGroups = async () => {
+export const deleteGuestsAndCharacters = async (prodOrTestingDb) => {
+  const targetDb = prodOrTestingDb === 'production' ? productionDb : testingDb;
   await Promise.all([
-    db.collection('groups').deleteMany({}),
-    db.collection('guests').deleteMany({}),
+    targetDb.collection('guests').deleteMany({}),
+    targetDb.collection('characters').deleteMany({}),
   ]);
   debug('Cleared!');
+};
+
+export const migrateDb = async (copyDirection) => {
+  let fromDb, toDb;
+  if (copyDirection === 'to-production') {
+    fromDb = testingDb;
+    toDb = productionDb;
+  } else {
+    fromDb = productionDb;
+    toDb = testingDb;
+  }
+  const [guestDocs, characterDocs, userDocs] = await Promise.all([
+    fromDb.collection('guests').find({}).toArray(),
+    fromDb.collection('characters').find({}).toArray(),
+    fromDb.collection('users').find({}).toArray(),
+  ]);
+
+  const guests = guestDocs.map((x) => Guest(x));
+  const characters = characterDocs.map((x) => Character(x));
+  const users = userDocs.map((x) => User(x));
+
+  await Promise.all([
+    toDb.collection('guests').insertMany(guests),
+    toDb.collection('users').insertMany(users),
+    toDb.collection('characters').insertMany(characters),
+  ]);
 };
 
 export default main;

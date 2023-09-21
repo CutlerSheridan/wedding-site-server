@@ -1,22 +1,29 @@
 import { Router } from 'express';
 const router = Router();
-import populate, { deleteGuestsAndGroups } from '../populatedb';
+import populate, { deleteGuestsAndCharacters, migrateDb } from '../populatedb';
 import asyncHandler from 'express-async-handler';
 import Debug from 'debug';
 const debug = Debug('populatedb_route');
 
 router.post(
-  '/',
+  '/populate-with-sample',
   asyncHandler(async (req, res) => {
     await populate();
     res.json('Done!\n');
   })
 );
 router.post(
-  '/del',
+  '/delete/:target_db',
   asyncHandler(async (req, res) => {
-    await deleteGuestsAndGroups();
+    await deleteGuestsAndCharacters(req.params.target_db);
     res.json('Cleared!\n');
+  })
+);
+router.post(
+  '/migrate-db/:copy_direction', // to-production or to-testing
+  asyncHandler(async (req, res) => {
+    await migrateDb(req.params.copy_direction);
+    res.json('DB successfully migrated');
   })
 );
 

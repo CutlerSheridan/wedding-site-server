@@ -2,14 +2,27 @@ import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
 import 'dotenv/config';
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(process.env.MONGODB_URI, {
+const productionClient = new MongoClient(process.env.MONGODB_PRODUCTION_URI, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
   },
 });
-const db = client.db('wedding-site');
-client.connect();
+const productionDb = productionClient.db('wedding-site');
+productionClient.connect();
 
-export { db, ObjectId };
+const testingClient = new MongoClient(process.env.MONGODB_TESTING_URI, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+const testingDb = testingClient.db('wedding-site-testing');
+testingClient.connect();
+
+// Change this when testing
+const db = productionDb;
+
+export { db, ObjectId, testingDb, productionDb };

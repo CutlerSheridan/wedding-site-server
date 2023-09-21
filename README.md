@@ -6,17 +6,8 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- add 'characters' collection to db with fields:
-  - name
-  - survives
-  - optional
-  - role
-  - backstory
-  - secrets
+- examine other db uses and consider extending them with prod. vs. testing db specification
 - add 'characters' API routes
-- make test DB
-  - add variable to swap references to production db vs. test db
-  - add function to clear test DB and populate it with data from production DB
 
 #### TODO LATER
 
@@ -39,6 +30,21 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - add credit
 
 #### DONE
+
+_0.3.0_
+
+- add testing db and distinguish it from production db
+- add characters to sample data
+- add function to migrate data from one db to the other
+- add populatedb routes to migrate data
+- extend populatedb deletion and migration routes to take parameters to dictate target DB
+- add 'characters' collection to db with fields:
+  - name
+  - survives
+  - optional
+  - role
+  - backstory
+  - secrets
 
 _0.2.12_
 
