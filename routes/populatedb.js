@@ -13,14 +13,14 @@ router.post(
   })
 );
 router.post(
-  '/delete/:target_db',
+  '/delete/:target_db', // 'production' or 'testing'
   asyncHandler(async (req, res) => {
     await deleteGuestsAndCharacters(req.params.target_db);
     res.json('Cleared!\n');
   })
 );
 router.post(
-  '/migrate-db/:copy_direction', // to-production or to-testing
+  '/migrate-db/:copy_direction', // 'to-production' or 'to-testing'
   asyncHandler(async (req, res) => {
     await migrateDb(req.params.copy_direction);
     res.json('DB successfully migrated');

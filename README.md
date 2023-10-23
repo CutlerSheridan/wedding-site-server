@@ -6,30 +6,41 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- examine other db uses and consider extending them with prod. vs. testing db specification
-- add 'characters' API routes
+- add ability to delete or populate specific collections
 
 #### TODO LATER
 
 ##### Features
 
-- change put PUT /:guest_id so it does not fetch original document, rather I will pass entire document with updates and just replace old doc with that
+- add 'characters' API routes
 - make it so changing sent_savedate, sent_invite, or any rsvp field to true changes next_round to false
 - move conditional changes to Guest object into guestController to declutter guests.js
 
 ##### Behavior
 
+- validate/sanitize PUT /:guest_id
+- forbid username from being used more than once
+- change put PUT /:guest_id so it does not fetch original document, rather I will pass entire document with updates and just replace old doc with that
 - consider indices for:
   - guests.group
     - groupController.findOne()
-- validate/sanitize PUT /:guest_id
 - clean up debugs
 
 ##### Style
 
 - add credit
 
+##### Production Deployment Checklist
+
+- clean up comments
+- clean up logs/debugs
+- change default backend db to production db
+
 #### DONE
+
+_0.3.1_
+
+- add real guest data to populatedb
 
 _0.3.0_
 

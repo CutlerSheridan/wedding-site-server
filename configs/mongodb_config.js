@@ -23,6 +23,6 @@ const testingDb = testingClient.db('wedding-site-testing');
 testingClient.connect();
 
 // Change this when testing
-const db = productionDb;
+const db = testingDb;
 
 export { db, ObjectId, testingDb, productionDb };
