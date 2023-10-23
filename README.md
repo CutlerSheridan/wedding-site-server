@@ -36,6 +36,10 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### DONE
 
+_0.3.3_
+
+- add ability to populate specific collection to current DB
+
 _0.3.2_
 
 - extend popoulatedb.js and populatedb route to be able to delete or populate specific collections

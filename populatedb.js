@@ -9,6 +9,16 @@ import asyncHandler from 'express-async-handler';
 const main = async () => {
   await Promise.all([createGuests(guestGroups), createCharacters(characters)]);
 };
+export const populateCollection = async (collectionName) => {
+  switch (collectionName) {
+    case 'guests':
+      await createGuests(guestGroups);
+      break;
+    case 'characters':
+      await createCharacters(characters);
+      break;
+  }
+};
 
 const guestCreate = asyncHandler(async (guestObj) => {
   if (!guestObj.rsvps) {

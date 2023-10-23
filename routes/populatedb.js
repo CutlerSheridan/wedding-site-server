@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 import populate, {
+  populateCollection,
   deleteGuestsAndCharacters,
   deleteCollection,
   migrateDb,
@@ -11,9 +12,16 @@ import Debug from 'debug';
 const debug = Debug('populatedb_route');
 
 router.post(
-  '/populate-with-sample',
+  '/populate',
   asyncHandler(async (req, res) => {
     await populate();
+    res.json('Done!\n');
+  })
+);
+router.post(
+  '/populate/:collection_name',
+  asyncHandler(async (req, res) => {
+    await populateCollection(req.params.collection_name);
     res.json('Done!\n');
   })
 );
