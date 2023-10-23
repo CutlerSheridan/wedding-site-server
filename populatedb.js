@@ -505,6 +505,11 @@ export const deleteGuestsAndCharacters = async (prodOrTestingDb) => {
   ]);
   debug('Cleared!');
 };
+export const deleteCollection = async (prodOrTestingDb, collectionName) => {
+  const targetDb = prodOrTestingDb === 'production' ? productionDb : testingDb;
+  await Promise.all([targetDb.collection(collectionName).deleteMany({})]);
+  debug('Cleared!');
+};
 
 export const migrateDb = async (copyDirection) => {
   let fromDb, toDb;
@@ -530,6 +535,32 @@ export const migrateDb = async (copyDirection) => {
     toDb.collection('users').insertMany(users),
     toDb.collection('characters').insertMany(characters),
   ]);
+};
+export const migrateCollection = async (copyDirection, collectionName) => {
+  let fromDb, toDb;
+  if (copyDirection === 'to-production') {
+    fromDb = testingDb;
+    toDb = productionDb;
+  } else {
+    fromDb = productionDb;
+    toDb = testingDb;
+  }
+  const docs = await fromDb.collection(collectionName).find({}).toArray();
+  let constructor;
+  switch (collectionName) {
+    case 'guests':
+      constructor = Guest;
+      break;
+    case 'characters':
+      constructor = Character;
+      break;
+    case 'users':
+      constructor = User;
+      break;
+  }
+
+  const objectsToMigrate = docs.map((x) => constructor(x));
+  await toDb.collection(collectionName).insertMany(objectsToMigrate);
 };
 
 export default main;

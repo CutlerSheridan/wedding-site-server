@@ -6,15 +6,13 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### TODO NEXT
 
-- add ability to delete or populate specific collections
-
 #### TODO LATER
 
 ##### Features
 
 - add 'characters' API routes
-- make it so changing sent_savedate, sent_invite, or any rsvp field to true changes next_round to false
-- move conditional changes to Guest object into guestController to declutter guests.js
+- ? make it so changing sent_savedate, sent_invite, or any rsvp field to true changes next_round to false
+- ? move conditional changes to Guest object into guestController to declutter guests.js
 
 ##### Behavior
 
@@ -37,6 +35,12 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - change default backend db to production db
 
 #### DONE
+
+_0.3.2_
+
+- extend popoulatedb.js and populatedb route to be able to delete or populate specific collections
+  - /delete/:collection_name/:target_db
+  - /migrate-db/:collection_name/:copy_direction
 
 _0.3.1_
 
