@@ -45,7 +45,6 @@ const guestCreate = asyncHandler(async (guestObj) => {
     sent_savedate: guestObj.std,
   });
   await db.collection('guests').insertOne(guest);
-  debug('guest created: ', guest);
 });
 const groupCreate = asyncHandler(async (groupArray) => {
   const groupId = randomizeId();
@@ -253,7 +252,15 @@ const guestGroups = [
       declined: true,
     },
   ],
-
+  [
+    {
+      name: 'Kathy Sheridan',
+      family: 'cutler',
+    },
+    {
+      name: 'Richard Farber',
+    },
+  ],
   [
     {
       name: 'Karen Reeves',
@@ -467,7 +474,6 @@ const guestGroups = [
   [
     {
       name: 'Shireen Heiba',
-      std: false,
     },
   ],
 
@@ -530,19 +536,19 @@ export const migrateDb = async (copyDirection) => {
     fromDb = productionDb;
     toDb = testingDb;
   }
-  const [guestDocs, characterDocs, userDocs] = await Promise.all([
+  const [guestDocs, characterDocs] = await Promise.all([
     fromDb.collection('guests').find({}).toArray(),
     fromDb.collection('characters').find({}).toArray(),
-    fromDb.collection('users').find({}).toArray(),
+    // fromDb.collection('users').find({}).toArray(),
   ]);
 
   const guests = guestDocs.map((x) => Guest(x));
   const characters = characterDocs.map((x) => Character(x));
-  const users = userDocs.map((x) => User(x));
+  // const users = userDocs.map((x) => User(x));
 
   await Promise.all([
     toDb.collection('guests').insertMany(guests),
-    toDb.collection('users').insertMany(users),
+    // toDb.collection('users').insertMany(users),
     toDb.collection('characters').insertMany(characters),
   ]);
 };

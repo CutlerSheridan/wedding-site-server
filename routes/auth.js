@@ -80,7 +80,6 @@ router.post('/signup', [
 router.post(
   '/login',
   asyncHandler(async (req, res, next) => {
-    debug('login body: ', req.body);
     passport.authenticate('login', async (err, userResponse, info) => {
       if (err || !userResponse) {
         const error = new Error(info.message);

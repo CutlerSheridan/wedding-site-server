@@ -14,9 +14,7 @@ router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   asyncHandler(async (req, res, next) => {
-    // debug('req.user: ', req.user);
     const guests = await guestController.find({});
-    // debug('returned guests: ', guests);
     res.json({
       message: 'You made it to the secure route to see the guests',
       user: req.user,
@@ -42,7 +40,6 @@ router.get('/count', [
     if (!countFields.declined) {
       countFields.declined = false;
     }
-    debug('includeGrooms: ', includeGrooms, 'countFields: ', countFields);
     const groomCount = includeGrooms ? 2 : 0;
     res.json(
       groomCount +
@@ -85,8 +82,6 @@ router.put(
       updatedGuest.declined = false;
     }
     await db.collection('guests').updateOne({ _id }, { $set: updatedGuest });
-    debug('old guest: ', currentGuestDoc);
-    debug('updated guest: ', updatedGuest);
     return res.status(currentGuestDoc ? 200 : 203).json(updatedGuest);
   })
 );

@@ -22,7 +22,7 @@ const testingClient = new MongoClient(process.env.MONGODB_TESTING_URI, {
 const testingDb = testingClient.db('wedding-site-testing');
 testingClient.connect();
 
-// Change this when testing
-const db = testingDb;
+// Change this when testing or deploying
+const db = productionDb;
 
 export { db, ObjectId, testingDb, productionDb };

@@ -18,7 +18,7 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 - validate/sanitize PUT /:guest_id
 - forbid username from being used more than once
-- change put PUT /:guest_id so it does not fetch original document, rather I will pass entire document with updates and just replace old doc with that
+- change PUT /:guest_id so it does not fetch original document, rather I will pass entire document with updates and just replace old doc with that
 - consider indices for:
   - guests.group
     - groupController.findOne()
@@ -35,6 +35,11 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - change default backend db to production db
 
 #### DONE
+
+_1.0.0_
+
+- swap default db to production
+- clean up some comments and logs/debugs
 
 _0.3.3_
 
