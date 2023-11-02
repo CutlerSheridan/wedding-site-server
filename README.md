@@ -36,6 +36,11 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### DONE
 
+_1.0.1_
+
+- add compression
+- add helmet
+
 _1.0.0_
 
 - swap default db to production
