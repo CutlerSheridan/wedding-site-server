@@ -8,8 +8,6 @@ import User from '../models/User.js';
 import 'dotenv/config';
 import userController from '../controllers/userController.js';
 import { ObjectId } from './mongodb_config.js';
-import Debug from 'debug';
-const debug = Debug('passport_config');
 
 passport.use(
   'signup',
@@ -52,12 +50,10 @@ passport.use(
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
     async (token, done) => {
-      debug('token at start: ', token);
       try {
         const user = await userController.findOne({
           _id: new ObjectId(token._id),
         });
-        debug('user after findOne: ', user);
         if (user) {
           const { password, ...userMinusPassword } = user;
           return done(null, userMinusPassword);

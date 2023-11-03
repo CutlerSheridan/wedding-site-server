@@ -8,8 +8,6 @@ import populate, {
   migrateCollection,
 } from '../populatedb.js';
 import asyncHandler from 'express-async-handler';
-import Debug from 'debug';
-const debug = Debug('populatedb_route');
 
 router.post(
   '/populate',

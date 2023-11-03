@@ -1,7 +1,5 @@
 import { Router } from 'express';
 const router = Router();
-import Debug from 'debug';
-const debug = Debug('route_guests');
 import asyncHandler from 'express-async-handler';
 import { body, query } from 'express-validator';
 import passport from '../configs/passport_config.js';

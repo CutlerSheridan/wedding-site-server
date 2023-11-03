@@ -1,8 +1,6 @@
 import { Router } from 'express';
 const router = Router();
 import asyncHandler from 'express-async-handler';
-import Debug from 'debug';
-const debug = Debug('route_groups');
 
 import groupController from '../controllers/groupController.js';
 

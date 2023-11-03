@@ -36,6 +36,10 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 
 #### DONE
 
+_1.0.3_
+
+- eliminate debug imports
+
 _1.0.2_
 
 - refactor imports with file extensions so package.json can specify that type is module for PaaS

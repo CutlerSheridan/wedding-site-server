@@ -6,8 +6,6 @@ import jwt from 'jsonwebtoken';
 import { body, validationResult } from 'express-validator';
 import userController from '../controllers/userController.js';
 import 'dotenv/config';
-import Debug from 'debug';
-const debug = Debug('auth');
 
 router.post('/signup', [
   body('username')

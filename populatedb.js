@@ -2,8 +2,6 @@ import { db, productionDb, testingDb } from './configs/mongodb_config.js';
 import Guest from './models/Guest.js';
 import User from './models/User.js';
 import Character from './models/Character.js';
-import Debug from 'debug';
-const debug = Debug('populatedb');
 import asyncHandler from 'express-async-handler';
 
 const main = async () => {
@@ -67,11 +65,9 @@ const characterCreate = asyncHandler(async (charObj) => {
 const createGuests = async (groupsArray) => {
   const promises = groupsArray.map(groupCreate);
   await Promise.all(promises);
-  debug('finished creating guests');
 };
 const createCharacters = async (charsArray) => {
   await Promise.all(charsArray.map((x) => characterCreate(x)));
-  debug('finished creating characters');
 };
 const randomizeId = () => {
   let _charOptions = 'abcdefghijklmnopqrstuvwxyz';
@@ -519,12 +515,10 @@ export const deleteGuestsAndCharacters = async (prodOrTestingDb) => {
     targetDb.collection('guests').deleteMany({}),
     targetDb.collection('characters').deleteMany({}),
   ]);
-  debug('Cleared!');
 };
 export const deleteCollection = async (prodOrTestingDb, collectionName) => {
   const targetDb = prodOrTestingDb === 'production' ? productionDb : testingDb;
   await Promise.all([targetDb.collection(collectionName).deleteMany({})]);
-  debug('Cleared!');
 };
 
 export const migrateDb = async (copyDirection) => {
