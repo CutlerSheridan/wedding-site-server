@@ -1,7 +1,7 @@
-import { db, productionDb, testingDb } from './configs/mongodb_config';
-import Guest from './models/Guest';
-import User from './models/User';
-import Character from './models/Character';
+import { db, productionDb, testingDb } from './configs/mongodb_config.js';
+import Guest from './models/Guest.js';
+import User from './models/User.js';
+import Character from './models/Character.js';
 import Debug from 'debug';
 const debug = Debug('populatedb');
 import asyncHandler from 'express-async-handler';

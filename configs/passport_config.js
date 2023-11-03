@@ -4,10 +4,10 @@ import {
   Strategy as JWTstrategy,
   ExtractJwt as ExtractJWT,
 } from 'passport-jwt';
-import User from '../models/User';
+import User from '../models/User.js';
 import 'dotenv/config';
-import userController from '../controllers/userController';
-import { ObjectId } from './mongodb_config';
+import userController from '../controllers/userController.js';
+import { ObjectId } from './mongodb_config.js';
 import Debug from 'debug';
 const debug = Debug('passport_config');
 

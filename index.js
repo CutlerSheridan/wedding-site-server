@@ -3,8 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import createError from 'http-errors';
 
-import routes from './routes';
-import './configs/passport_config';
+import routes from './routes/index.js';
+import './configs/passport_config.js';
 import compression from 'compression';
 import helmet from 'helmet';
 

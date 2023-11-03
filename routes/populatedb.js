@@ -6,7 +6,7 @@ import populate, {
   deleteCollection,
   migrateDb,
   migrateCollection,
-} from '../populatedb';
+} from '../populatedb.js';
 import asyncHandler from 'express-async-handler';
 import Debug from 'debug';
 const debug = Debug('populatedb_route');

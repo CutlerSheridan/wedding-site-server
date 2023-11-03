@@ -1,5 +1,5 @@
-import User from '../models/User';
-import { db } from '../configs/mongodb_config';
+import User from '../models/User.js';
+import { db } from '../configs/mongodb_config.js';
 import bcrypt from 'bcryptjs';
 
 const saveToDB = async (user) => {

@@ -1,6 +1,6 @@
-import { db, ObjectId } from '../configs/mongodb_config';
-import Guest from '../models/Guest';
-import guestController from './guestController';
+import { db, ObjectId } from '../configs/mongodb_config.js';
+import Guest from '../models/Guest.js';
+import guestController from './guestController.js';
 import Debug from 'debug';
 const debug = Debug('group_controller');
 

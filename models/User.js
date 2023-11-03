@@ -1,4 +1,4 @@
-import { ObjectId } from '../configs/mongodb_config';
+import { ObjectId } from '../configs/mongodb_config.js';
 
 const _userSchema = ({ _id, username, password }) => {
   return {

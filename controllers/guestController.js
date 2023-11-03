@@ -1,5 +1,5 @@
-import Guest from '../models/Guest';
-import { db, ObjectId } from '../configs/mongodb_config';
+import Guest from '../models/Guest.js';
+import { db, ObjectId } from '../configs/mongodb_config.js';
 import Debug from 'debug';
 const debug = Debug('guest_controller');
 
