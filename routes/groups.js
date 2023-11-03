@@ -14,7 +14,7 @@ router.get(
 router.get(
   '/search',
   asyncHandler(async (req, res, next) => {
-    const name = req.query.name.replaceAll('_', ' ');
+    const name = req.query.name.replace(/_/g, ' ');
     const group = await groupController.findByName(name);
     res.json(group);
   })

@@ -4,6 +4,8 @@
 
 Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-client).
 
+This server is hosted at https://cutlerandtyler.onrender.com.
+
 #### TODO NEXT
 
 #### TODO LATER
@@ -35,6 +37,10 @@ Find the frontend repo [here](https://github.com/CutlerSheridan/wedding-site-cli
 - change default backend db to production db
 
 #### DONE
+
+_1.0.4_
+
+- use .replace instead of .replaceAll in groups.js for compatibility
 
 _1.0.3_
 
